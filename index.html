@@ -263,15 +263,17 @@
         </div>
     </footer>
     <script>
-        fetch('https://api.quotable.io/random')
+        fetch('https://type.fit/api/quotes')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
-            .then(data => {
-                document.getElementById('quote-content').innerText = `"${data.content}" — ${data.author}`;
+            .then(quotes => {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const quote = quotes[randomIndex];
+                document.getElementById('quote-content').innerText = `"${quote.text}" — ${quote.author || "Unknown"}`;
             })
             .catch(error => {
                 document.getElementById('quote-content').innerText = "Could not load quote.";
