@@ -263,21 +263,19 @@
         </div>
     </footer>
     <script>
-        fetch('https://type.fit/api/quotes')
+        fetch('https://api.adviceslip.com/advice')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
-            .then(quotes => {
-                const randomIndex = Math.floor(Math.random() * quotes.length);
-                const quote = quotes[randomIndex];
-                document.getElementById('quote-content').innerText = `"${quote.text}" — ${quote.author || "Unknown"}`;
+            .then(data => {
+                document.getElementById('quote-content').innerText = `"${data.slip.advice}"`;
             })
             .catch(error => {
-                document.getElementById('quote-content').innerText = "Could not load quote.";
-                console.error('Error fetching quote:', error);
+                document.getElementById('quote-content').innerText = "Could not load advice.";
+                console.error('Error fetching advice:', error);
             });
         document.getElementById('interactive-area').addEventListener('mousemove', function (e) {
             this.innerText = `Mouse position - X: ${e.clientX}, Y: ${e.clientY}`;
